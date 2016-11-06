@@ -1,0 +1,14 @@
+= DevOps Training Platform
+
+This is (hopefully) a working example of a delivery pipeline using
+
+. Jenkins
+. A generic build slave with only Docker installed
+.. so we don't build on master
+. Most commonly used build tools, meaning
+.. Maven
+.. NPM
+. A fairly generic project
+.. https://github.com/cachavezley/devops-training-app[a TODO list]
+.. with a frontend and a backend
+. a project-defined pipeline
