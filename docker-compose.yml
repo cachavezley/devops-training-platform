@@ -1,0 +1,10 @@
+jenkins:
+  image: training/jenkins
+  ports:
+  - "10000:8080"
+  - "50000:50000"
+  environment:
+  - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+  volumes:
+  - ./data/jenkins/:/var/jenkins_home/
+  - /etc/localtime:/etc/localtime:ro
