@@ -12,18 +12,6 @@ function destroySlaveVM() {
     cd -
 }
 
-function waitForLogEntry() {
-    while read LINE; do
-
-        echo $LINE
-        if [[ $LINE =~ "$1" ]];             then
-            echo "DEVOPS: We can now launch the Jenkins client commands"
-            return
-        fi
-
-    done < <(docker logs -f training-jenkins)
-}
-
 function downloadJenkinsClient() {
     if [ ! -f jenkins/jenkins-cli.jar ]
     then
