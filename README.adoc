@@ -44,3 +44,11 @@ this will
 ----
 ./cleanup.sh
 ----
+
+this will
+
+. remove the containers concerning this training platform
+. remove the `data` folder containing Jenkins home
+. remove the `jenkins-cli.jar`
+. destroy the Vagrant Box used as a Jenkins slave
+. remove the Docker Images build for this training
