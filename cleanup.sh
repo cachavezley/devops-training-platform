@@ -9,3 +9,4 @@ rm -rf $(echo data/.[^.]*)
 rm -f jenkins-cli.jar
 
 vagrant destroy -f
+docker rmi training/jenkins
