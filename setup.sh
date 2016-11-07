@@ -40,9 +40,9 @@ function declareNode() {
 }
 
 function cleanData() {
-    sudo chown -R $(whoami):$(whoami) data/jenkins/
-    rm -rf data/jenkins/*
-    rm -rf $(echo data/jenkins/.[^.]*)
+    sudo chown -R $(whoami):$(whoami) data/
+    rm -rf data/*
+    rm -rf $(echo data/.[^.]*)
 }
 
 ###########################		MAIN SCRIPT         ###########################
