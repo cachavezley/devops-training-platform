@@ -16,3 +16,7 @@ This is (hopefully) a working example of a delivery pipeline using
 == Prerequisites
 * https://docs.docker.com/engine/installation/[Docker]
 * https://www.vagrantup.com/[Vagrant]
+
+== Setup
+
+== Cleanup
