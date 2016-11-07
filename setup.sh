@@ -1,8 +1,62 @@
 #!/usr/bin/env bash
+###########################		FUNCTIONS           ###########################
+function launchSlaveVM() {
+    cd jenkins/
+    vagrant up
+    cd -
+}
 
+function destroySlaveVM() {
+    cd jenkins/
+    vagrant destroy -f
+    cd -
+}
+
+function waitForLogEntry() {
+    while read LINE; do
+
+        echo $LINE
+        if [[ $LINE =~ "$1" ]];             then
+            echo "DEVOPS: We can now launch the Jenkins client commands"
+            return
+        fi
+
+    done < <(docker logs -f training-jenkins)
+}
+
+function downloadJenkinsClient() {
+    if [ ! -f jenkins/jenkins-cli.jar ]
+    then
+        wget -P jenkins/ http://localhost:10000/jnlpJars/jenkins-cli.jar
+    fi
+}
+
+function declareCredentials() {
+    cat jenkins/credential.xml | java -jar jenkins/jenkins-cli.jar -s http://localhost:10000/ create-credentials-by-xml "system::system::jenkins" "(global)"
+}
+
+function declareNode() {
+    cat jenkins/node.xml | java -jar jenkins/jenkins-cli.jar -s http://localhost:10000/ create-node
+}
+
+function cleanData() {
+    sudo chown -R $(whoami):$(whoami) data/jenkins/
+    rm -rf data/jenkins/*
+    rm -rf $(echo data/jenkins/.[^.]*)
+}
+
+###########################		MAIN SCRIPT         ###########################
+launchSlaveVM
 docker build -t training/jenkins jenkins/
-docker-compose up
-docker-compose down
+docker-compose up -d
 
-rm -rf data/jenkins/*
-rm -rf $(echo data/jenkins/.[^.]*)
+sleep 20
+downloadJenkinsClient
+declareCredentials
+declareNode
+
+docker logs -f training-jenkins
+
+docker-compose down
+cleanData
+destroySlaveVM
