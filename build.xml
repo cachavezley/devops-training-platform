@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.8">
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+      <triggers/>
+    </org.jenkinsci.plugins.workflow.job.properties.PipelineTriggersJobProperty>
+  </properties>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.23">
+    <script>node(&apos;slave&apos;) {
+
+    stage(&apos;CLEAN WORKSPACE&apos;) {
+        sh &quot;sudo rm -rf *&quot;
+    }
+
+    stage(&apos;CHECKOUT&apos;) {
+        git &apos;https://github.com/cachavezley/devops-training-app.git&apos;
+    }
+
+    stage(&apos;BUILD&apos;) {
+        final def workspace = pwd()
+        final def home = sh(returnStdout: true, script: &apos;echo $HOME&apos;).trim()
+
+        final mvn = docker.image(&quot;maven:3.3.9-jdk-7&quot;)
+        mvn.pull()
+
+        try {
+            mvn.withRun(&quot;-v $home/.m2/repository/:/root/.m2/repository/ -w /app/ -v $workspace/application/backend/:/app/&quot;, &quot;mvn -B clean verify&quot;) { c -&gt;
+                sh &quot;docker logs -f ${c.id}&quot;
+            }
+        } finally {
+            junit allowEmptyResults: true, testResults: &apos;application/backend/target/*-reports/TEST-*.xml&apos;
+        }
+    }
+}</script>
+    <sandbox>true</sandbox>
+  </definition>
+  <triggers/>
+</flow-definition>
