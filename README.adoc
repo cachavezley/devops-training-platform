@@ -12,3 +12,7 @@ This is (hopefully) a working example of a delivery pipeline using
 .. https://github.com/cachavezley/devops-training-app[a TODO list]
 .. with a frontend and a backend
 . a project-defined pipeline
+
+== Prerequisites
+* https://docs.docker.com/engine/installation/[Docker]
+* https://www.vagrantup.com/[Vagrant]

@@ -1,5 +1,6 @@
 jenkins:
   image: training/jenkins
+  container_name : training-jenkins
   ports:
   - "10000:8080"
   - "50000:50000"
@@ -8,3 +9,4 @@ jenkins:
   volumes:
   - ./data/jenkins/:/var/jenkins_home/
   - /etc/localtime:/etc/localtime:ro
+  - ./jenkins/.vagrant/machines/default/virtualbox/private_key:/var/jenkins_home/.ssh/id_rsa
