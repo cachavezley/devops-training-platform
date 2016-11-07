@@ -7,3 +7,4 @@ RUN install-plugins.sh pipeline-utility-steps:1.1.6
 RUN install-plugins.sh ssh:2.4
 RUN install-plugins.sh ssh-slaves:1.11
 RUN install-plugins.sh timestamper:1.8.7
+RUN install-plugins.sh git:3.0.0
