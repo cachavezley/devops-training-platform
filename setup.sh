@@ -18,7 +18,7 @@ function declareNode() {
 
 ###########################		MAIN SCRIPT         ###########################
 vagrant up
-docker build -t training/jenkins jenkins/
+docker build -t training/jenkins .
 docker-compose up -d
 
 sleep 20
