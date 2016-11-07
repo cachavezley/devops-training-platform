@@ -17,6 +17,30 @@ This is (hopefully) a working example of a delivery pipeline using
 * https://docs.docker.com/engine/installation/[Docker]
 * https://www.vagrantup.com/[Vagrant]
 
-== Setup
+== Launch
+In order to launch your platform all you have to do is execute the following script
+
+[source,bash]
+----
+./setup.sh
+----
+
+this will
+
+. launch a Vagrant Box to be used as a Jenkins Slave
+.. this box installs Docker on launch
+. build a Jenkins Docker Image with all the necessary plugins already installed
+. launch a container using this newly-built image
+. download the https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+CLI[Jenkins Client] from this instance
+. create the credentials in Jenkins
+.. we use Vagrant's private key (found in `.vagrant/machines/default/virtualbox/private_key`) as Jenkins key also
+. create the node in Jenkins
+.. we use the private IP (`192.168.33.10`) we set in the Vagrantfile to connect the Vagrant Box
+. use a local folder `data/` localted inside this workspace (where you cloned this project) to locally stock Jenkins files (to survive restarts)
 
 == Cleanup
+
+[source,bash]
+----
+./cleanup.sh
+----
