@@ -14,6 +14,7 @@ This is (hopefully) a working example of a delivery pipeline using
 . a project-defined pipeline
 
 == Prerequisites
+* Java 1.7+
 * https://docs.docker.com/engine/installation/[Docker]
 * https://www.vagrantup.com/[Vagrant]
 

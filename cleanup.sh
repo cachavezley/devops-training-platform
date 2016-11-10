@@ -6,14 +6,15 @@ echo "INFO: Destroying Docker Containers"
 docker-compose down
 
 echo "INFO: Cleaning up Jenkins Data"
-sudo chown -R $(whoami):$(whoami) data/
-rm -rf data/*
-rm -rf $(echo data/.[^.]*)
+sudo rm -rf data/
 
 rm -f jenkins-cli.jar
 
 echo "INFO: Destroying Vagrant Box"
+cd jenkins/
 vagrant destroy -f
+rm -rf .vagrant/
+cd -
 
 echo "INFO: Removing Jenkins Docker Image"
 docker rmi training/jenkins
