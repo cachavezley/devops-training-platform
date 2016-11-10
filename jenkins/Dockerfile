@@ -11,3 +11,4 @@ RUN install-plugins.sh git:3.0.0
 RUN install-plugins.sh jobConfigHistory:2.15
 RUN install-plugins.sh pragprog:2.0.0
 RUN install-plugins.sh mask-passwords:2.8
+RUN install-plugins.sh lockable-resources:1.10
