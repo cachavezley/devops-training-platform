@@ -27,16 +27,16 @@ function downloadJenkinsClient() {
 }
 
 function declareCredentials() {
-    cat jenkins/default_conf/credential.xml | java -jar jenkins-cli.jar -s http://localhost:10000/ create-credentials-by-xml "system::system::jenkins" "(global)"
+    cat jenkins/credential.xml | java -jar jenkins-cli.jar -s http://localhost:10000/ create-credentials-by-xml "system::system::jenkins" "(global)"
 }
 
 function declareNode() {
-    cat jenkins/default_conf/node.xml | java -jar jenkins-cli.jar -s http://localhost:10000/ create-node
+    cat jenkins/node.xml | java -jar jenkins-cli.jar -s http://localhost:10000/ create-node
 }
 
 function declareJobs() {
-    cat jenkins/default_conf/folder.xml | java -jar jenkins-cli.jar -s http://localhost:10000/ create-job my-todo-app
-    cat jenkins/default_conf/build.xml | java -jar jenkins-cli.jar -s http://localhost:10000/ create-job my-todo-app/build
+    cat jenkins/folder.xml | java -jar jenkins-cli.jar -s http://localhost:10000/ create-job my-todo-app
+    cat jenkins/build.xml | java -jar jenkins-cli.jar -s http://localhost:10000/ create-job my-todo-app/build
 }
 
 ###########################		MAIN SCRIPT         ###########################
